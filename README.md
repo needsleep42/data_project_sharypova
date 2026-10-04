@@ -11,4 +11,9 @@
 - Строк: ~9 800
 - Столбцов: 18 (температура, время, % массы, ДТГ — скорость изменения массы образца, pH, состав образца и другие метаданные)
 
-[Скачать датасет](https://drive.google.com/file/d/1AzuOQPWF5PUckfjcGoHsmzs5hGJxtO7j/view?usp=sharing)
+[Скачать датасет (Google Drive, 2.2 МБ)](https://drive.google.com/file/d/1AzuOQPWF5PUckfjcGoHsmzs5hGJxtO7j/view?usp=sharing)
+
+## Как запустить
+
+1. Установить зависимости: `python -m pip install -r requirements.txt`
+2. Запустить загрузку датасета: `python data_loader.py`
