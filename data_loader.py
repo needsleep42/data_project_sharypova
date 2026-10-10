@@ -1,6 +1,8 @@
 import pandas as pd
+from pathlib import Path
 
 DATASET_URL = "https://drive.google.com/uc?export=download&id=1AzuOQPWF5PUckfjcGoHsmzs5hGJxtO7j"
+OUTPUT_PATH = Path(__file__).parent / "data.parquet"
 
 
 def load_data():
@@ -23,4 +25,4 @@ def convert_types(data):
 if __name__ == "__main__":
     data = load_data()
     data = convert_types(data)
-    data.to_parquet("data.parquet", index=False)
+    data.to_parquet(OUTPUT_PATH, index=False)
