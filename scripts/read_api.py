@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 import requests
 
-url = "https://api.openalex.org/works"
+URL = "https://api.openalex.org/works"
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "openalex_hydrogels.csv"
 
 params = {
@@ -10,7 +10,7 @@ params = {
     "per_page": 100
 }
 
-response = requests.get(url, params=params, timeout=30)
+response = requests.get(URL, params=params, timeout=30)
 response.raise_for_status()
 
 data = response.json()
@@ -19,9 +19,9 @@ articles = []
 
 for article in data["results"]:
     articles.append({
-        "title": article["title"],
+        "title": article.get("title"),
         "year": article["publication_year"],
-        "doi": article["doi"],
+        "doi": article.get("doi"),
         "citations": article["cited_by_count"],
         "open_access": article["open_access"]["is_oa"],
         "type": article["type"]
