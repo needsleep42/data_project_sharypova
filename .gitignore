@@ -219,3 +219,6 @@ __marimo__/
 
 # Dataset files
 *.parquet
+
+# OpenAlex dataset
+openalex_hydrogels.csv
