@@ -6,6 +6,11 @@ ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "creds.db"
 ENV_PATH = ROOT / ".env"
 
+if not DB_PATH.exists():
+    raise FileNotFoundError(
+        "Файл creds.db не найден. Поместите его в корень проекта."
+    )
+
 with sqlite3.connect(DB_PATH) as connection:
     connection.row_factory = sqlite3.Row
 
@@ -14,13 +19,20 @@ with sqlite3.connect(DB_PATH) as connection:
         ("student",)
     ).fetchone()
 
-    homework = connection.execute(
+    homework_accounts = connection.execute(
         'SELECT * FROM access WHERE "user" != ?',
         ("student",)
-    ).fetchone()
+    ).fetchall()
 
-if student is None or homework is None:
-    raise ValueError("Не найдены необходимые учётные записи")
+if student is None:
+    raise ValueError("Учётная запись student не найдена")
+
+if len(homework_accounts) != 1:
+    raise ValueError(
+        "В базе должна быть ровно одна дополнительная учётная запись"
+    )
+
+homework = homework_accounts[0]
 
 # Настройки учебной базы
 set_key(ENV_PATH, "STUDENT_DB_HOST", str(student["url"]))
