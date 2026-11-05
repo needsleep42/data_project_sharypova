@@ -2,3 +2,6 @@ pandas==3.0.6
 pyarrow==26.0.0
 requests==2.34.2
 matplotlib==3.11.2
+sqlalchemy==2.0.48
+psycopg2-binary==2.9.13
+python-dotenv==1.2.4
