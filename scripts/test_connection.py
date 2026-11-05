@@ -1,38 +1,7 @@
-import os
-from pathlib import Path
+from sqlalchemy import text
+from db_utils import get_engine
 
-from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
-from sqlalchemy.engine import URL
-
-ROOT = Path(__file__).resolve().parent.parent
-
-load_dotenv(ROOT / ".env")
-
-required_vars = [
-    "HOMEWORK_DB_USER",
-    "HOMEWORK_DB_PASSWORD",
-    "HOMEWORK_DB_HOST",
-    "HOMEWORK_DB_PORT",
-    "HOMEWORK_DB_NAME"
-]
-
-for var in required_vars:
-    if not os.getenv(var):
-        raise ValueError(
-            "Не найдена настройка подключения. Сначала запустите read_creds.py"
-        )
-
-db_url = URL.create(
-    drivername="postgresql+psycopg2",
-    username=os.getenv("HOMEWORK_DB_USER"),
-    password=os.getenv("HOMEWORK_DB_PASSWORD"),
-    host=os.getenv("HOMEWORK_DB_HOST"),
-    port=int(os.getenv("HOMEWORK_DB_PORT")),
-    database=os.getenv("HOMEWORK_DB_NAME"),
-)
-
-engine = create_engine(db_url, connect_args={"connect_timeout": 10})
+engine = get_engine()
 
 with engine.connect() as connection:
     result = connection.execute(text("SELECT current_database()"))

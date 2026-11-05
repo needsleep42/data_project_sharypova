@@ -29,7 +29,8 @@ if student is None:
 
 if len(homework_accounts) != 1:
     raise ValueError(
-        "В базе должна быть ровно одна дополнительная учётная запись"
+        f"Ожидалась одна дополнительная учётная запись, "
+        f"найдено: {len(homework_accounts)}"
     )
 
 homework = homework_accounts[0]
