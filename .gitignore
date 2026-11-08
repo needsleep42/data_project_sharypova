@@ -222,3 +222,8 @@ __marimo__/
 
 # OpenAlex dataset
 openalex_hydrogels.csv
+
+# Database credentials
+creds*.db
+.env.*
+!.env.example
